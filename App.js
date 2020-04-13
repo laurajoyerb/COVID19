@@ -11,19 +11,19 @@ const styles = StyleSheet.create({
   viewStyleOne: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#b642f4',
+    backgroundColor: 'powderblue',
     flexGrow: 1,
   },
   viewStyleTwo: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: 'skyblue',
     flexGrow: 3,
   },
   viewStyleThree: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: 'steelblue',
     flexGrow: 3,
   },
   textStyle: {
