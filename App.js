@@ -4,11 +4,30 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 700,
-    width: 400,
-    justifyContent: 'flex-end',
+    backgroundColor: '#4286f4',
+    flex: 1,
+    alignItems: 'stretch',
+  },
+  viewStyleOne: {
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#b642f4',
+    flexGrow: 1,
+  },
+  viewStyleTwo: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+    flexGrow: 3,
+  },
+  viewStyleThree: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'orange',
+    flexGrow: 3,
+  },
+  textStyle: {
+    textAlign: 'center'
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -38,12 +57,12 @@ function parseResponse(res) {
     } 
   });
 
-  console.log("Global Cases: " + globalCases);
-  console.log("Global Deaths: " + globalDeaths);
-  console.log("Global Recovered: " + globalRecovered);
-  console.log("US Cases: " + USCases);
-  console.log("US Deaths: " + USDeaths);
-  console.log("US Recovered: " + USRecovered);
+  // console.log("Global Cases: " + globalCases);
+  // console.log("Global Deaths: " + globalDeaths);
+  // console.log("Global Recovered: " + globalRecovered);
+  // console.log("US Cases: " + USCases);
+  // console.log("US Deaths: " + USDeaths);
+  // console.log("US Recovered: " + USRecovered);
 };
 
 var requestOptions = {
@@ -62,17 +81,15 @@ export default
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={{
-            latitude: 62,
-            longitude: -152,
-            latitudeDelta: 20.0,
-            longitudeDelta: 40.0,
-          }}
-        >
-        </MapView>
+        <View style={styles.viewStyleOne}>
+          <Text style={styles.textStyle}> Title </Text>
+        </View>
+        <View style={styles.viewStyleTwo}>
+          <Text style={styles.textStyle}> Global Stats </Text>
+        </View>
+        <View style={styles.viewStyleThree}>
+          <Text style={styles.textStyle}> Country Stats </Text>
+        </View>
       </View>
     );
   }
