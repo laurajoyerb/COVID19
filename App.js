@@ -15,6 +15,47 @@ const styles = StyleSheet.create({
   },
 });
 
+var globalCases = 0;
+var globalDeaths = 0;
+var globalRecovered = 0;
+
+var USCases = 0;
+var USDeaths = 0;
+var USRecovered = 0;
+
+function parseResponse(res) {
+  var json_res = JSON.parse(res);
+
+  globalCases = json_res.Global.TotalConfirmed;
+  globalDeaths = json_res.Global.TotalDeaths;
+  globalRecovered = json_res.Global.TotalRecovered;
+
+  json_res.Countries.forEach(country => {
+    if (country.Country == "United States of America") {
+      USCases = country.TotalConfirmed;
+      USDeaths = country.TotalDeaths;
+      USRecovered = country.TotalRecovered;
+    } 
+  });
+
+  console.log("Global Cases: " + globalCases);
+  console.log("Global Deaths: " + globalDeaths);
+  console.log("Global Recovered: " + globalRecovered);
+  console.log("US Cases: " + USCases);
+  console.log("US Deaths: " + USDeaths);
+  console.log("US Recovered: " + USRecovered);
+};
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://api.covid19api.com/summary", requestOptions)
+  .then(response => response.text())
+  .then(result => parseResponse(result))
+  .catch(error => console.log('error', error));
+
 export default
 
   class App extends React.Component {
