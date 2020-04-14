@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import "./globals.js"
 
 const styles = StyleSheet.create({
   container: {
@@ -34,46 +35,46 @@ const styles = StyleSheet.create({
   },
 });
 
-var globalCases = 0;
-var globalDeaths = 0;
-var globalRecovered = 0;
-
-var USCases = 0;
-var USDeaths = 0;
-var USRecovered = 0;
-
-function parseResponse(res) {
-  var json_res = JSON.parse(res);
-
-  globalCases = json_res.Global.TotalConfirmed;
-  globalDeaths = json_res.Global.TotalDeaths;
-  globalRecovered = json_res.Global.TotalRecovered;
-
-  json_res.Countries.forEach(country => {
-    if (country.Country == "United States of America") {
-      USCases = country.TotalConfirmed;
-      USDeaths = country.TotalDeaths;
-      USRecovered = country.TotalRecovered;
-    } 
-  });
-
-  // console.log("Global Cases: " + globalCases);
-  // console.log("Global Deaths: " + globalDeaths);
-  // console.log("Global Recovered: " + globalRecovered);
-  // console.log("US Cases: " + USCases);
-  // console.log("US Deaths: " + USDeaths);
-  // console.log("US Recovered: " + USRecovered);
-};
-
 var requestOptions = {
   method: 'GET',
   redirect: 'follow'
 };
 
-fetch("https://api.covid19api.com/summary", requestOptions)
-  .then(response => response.text())
-  .then(result => parseResponse(result))
-  .catch(error => console.log('error', error));
+function getWorldSummary() {
+  fetch("https://api.covid19api.com/summary", requestOptions)
+    .then(response => response.text())
+    .then(result => parseWorld(result))
+    .catch(error => console.log('error', error));};
+
+function getCountrySummary(country) {
+  fetch("https://api.covid19api.com/summary", requestOptions)
+    .then(response => response.text())
+    .then(result => parseCountry(country, result))
+    .catch(error => console.log('error', error));
+};
+
+function parseWorld(res) {
+  var json_res = JSON.parse(res);
+
+  global.globalCases = json_res.Global.TotalConfirmed;
+  global.globalDeaths = json_res.Global.TotalDeaths;
+  global.globalRecovered = json_res.Global.TotalRecovered;
+};
+
+function parseCountry(country_target, res) {
+  var json_res = JSON.parse(res);
+
+  json_res.Countries.forEach(country => {
+    if (country.Country == country_target) {
+      global.countryCases = country.TotalConfirmed;
+      global.countryDeaths = country.TotalDeaths;
+      global.countryRecovered = country.TotalRecovered;
+    }
+  });
+};
+
+getWorldSummary();
+getCountrySummary("South Africa");
 
 export default
 
@@ -85,10 +86,14 @@ export default
           <Text style={styles.textStyle}> Title </Text>
         </View>
         <View style={styles.viewStyleTwo}>
-          <Text style={styles.textStyle}> Global Stats </Text>
+          <Text style={styles.textStyle}> Global Cases: {global.globalCases} </Text>
+          <Text style={styles.textStyle}> Global Deaths: {global.globalDeaths} </Text>
+          <Text style={styles.textStyle}> Global Recovered: {global.globalRecovered} </Text>
         </View>
         <View style={styles.viewStyleThree}>
-          <Text style={styles.textStyle}> Country Stats </Text>
+          <Text style={styles.textStyle}> Country Cases: {global.countryCases} </Text>
+          <Text style={styles.textStyle}> Country Deaths: {global.countryDeaths} </Text>
+          <Text style={styles.textStyle}> Country Recovered: {global.countryRecovered} </Text>
         </View>
       </View>
     );

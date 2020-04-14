@@ -916,6 +916,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@cawfree/react-native-heat-map@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@cawfree/react-native-heat-map/-/react-native-heat-map-0.0.2.tgz#4edfdd2e3df5d7f9cca73fbf9fe82b54857ecb16"
+  integrity sha512-LQBTFECKRazVVfIdtsnzsGeTzafQAefmyGSr4tWsIQ7wM+OnnpD3GrO4XdryKtN3K/BcKQpyUJdt+/xxyXtemA==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
