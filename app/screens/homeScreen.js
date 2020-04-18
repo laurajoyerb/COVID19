@@ -6,16 +6,16 @@ class HomeScreen extends React.Component{
         return (
             <View>
                 <Text>
-                    Home Screen
+                    COVID-19
                 </Text>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('SummaryScreen')}><Text>Summary</Text>
+                    onPress={() => this.props.navigation.navigate('SummaryScreen')}><Text>Quick Summary</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('GlobalScreen')}><Text>Global</Text>
+                    onPress={() => this.props.navigation.navigate('GlobalScreen')}><Text>World Map</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('CountryScreen')}><Text>Country</Text>
+                    onPress={() => this.props.navigation.navigate('CountryScreen')}><Text>By Country</Text>
                 </TouchableOpacity>
             </View>
         );
