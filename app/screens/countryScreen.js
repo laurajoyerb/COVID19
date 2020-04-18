@@ -31,7 +31,13 @@ function parseSlug(target, res, date) {
 
 // gets the actual data for that country
 function getSlugData(slug, date) {
-    var from = "2020-04-01T00:00:00Z";
+
+    // The api requries a "to" and a "from" date
+    // we will make the "from" date the day before the date actually requested
+    var d = new Date(date);
+    var from = d.setDate(d.getDate() - 1);
+    from = from.toString();
+    
     var to = date;
 
     // these are the same for all calls
@@ -85,7 +91,7 @@ function extractData(obj) {
     }
 }
 
-getCountryData("South Africa", "2020-04-02T00:00:00Z");
+getCountryData("South Africa", "2020-03-30T00:00:00Z");
 
 export default
 
