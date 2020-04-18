@@ -35,45 +35,6 @@
 //   },
 // });
 
-// var requestOptions = {
-//   method: 'GET',
-//   redirect: 'follow'
-// };
-
-// function getWorldSummary() {
-//   fetch("https://api.covid19api.com/summary", requestOptions)
-//     .then(response => response.json())
-//     .then(result => parseWorld(result))
-//     .catch(error => console.log('error', error));};
-
-// function getCountrySummary(country) {
-//   fetch("https://api.covid19api.com/summary", requestOptions)
-//     .then(response => response.json())
-//     .then(result => parseCountry(country, result))
-//     .catch(error => console.log('error', error));
-// };
-
-// function parseWorld(res) {
-
-//   global.globalCases = res.Global.TotalConfirmed;
-//   global.globalDeaths = res.Global.TotalDeaths;
-//   global.globalRecovered = res.Global.TotalRecovered;
-// };
-
-// function parseCountry(country_target, res) {
-
-//   res.Countries.forEach(country => {
-//     if (country.Country == country_target) {
-//       global.countryCases = country.TotalConfirmed;
-//       global.countryDeaths = country.TotalDeaths;
-//       global.countryRecovered = country.TotalRecovered;
-//     }
-//   });
-// };
-
-// getWorldSummary();
-// getCountrySummary("South Africa");
-
 // export default
 
 //   class App extends React.Component {
