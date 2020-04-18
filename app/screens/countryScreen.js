@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 
-var data = {"cases": 0};
+var data = {"cases": ""};
 
 var requestOptions = {
     method: 'GET',
@@ -37,7 +37,7 @@ function getSlugData(slug, date) {
     var d = new Date(date);
     var from = d.setDate(d.getDate() - 1);
     from = from.toString();
-    
+
     var to = date;
 
     // these are the same for all calls
@@ -67,6 +67,8 @@ function getSlugData(slug, date) {
 };
 
 function getExactDate(res, date) {
+    // sends only one object to extractData function
+    // selects onyl the one object from the target date
     res.forEach(element => {
         if (element.Date == date) {
             extractData(element);
