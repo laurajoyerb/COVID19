@@ -35,33 +35,7 @@
 //   },
 // });
 
-// export default
-
-//   class App extends React.Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <View style={styles.viewStyleOne}>
-//           <Text style={styles.textStyle}> Title </Text>
-//         </View>
-//         <View style={styles.viewStyleTwo}>
-//           <Text style={styles.textStyle}> Global Cases: {global.globalCases} </Text>
-//           <Text style={styles.textStyle}> Global Deaths: {global.globalDeaths} </Text>
-//           <Text style={styles.textStyle}> Global Recovered: {global.globalRecovered} </Text>
-//         </View>
-//         <View style={styles.viewStyleThree}>
-//           <Text style={styles.textStyle}> Country Cases: {global.countryCases} </Text>
-//           <Text style={styles.textStyle}> Country Deaths: {global.countryDeaths} </Text>
-//           <Text style={styles.textStyle}> Country Recovered: {global.countryRecovered} </Text>
-//         </View>
-//       </View>
-//     );
-//   }
-// }
-
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { StackNavigator, createAppContainer } from 'react-navigation';
 import AppNavigator from './app/navigation/appNavigator'
 
 export default class App extends Component {
