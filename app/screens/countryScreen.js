@@ -34,10 +34,27 @@ function getSlugData(slug, date) {
     var from = "2020-04-01T00:00:00Z";
     var to = date;
 
+    // these are the same for all calls
     const base_url = "https://api.covid19api.com/country/" + slug;
-    const status_url = base_url + "/status/deaths?from=";
-    const params_url = status_url + from + "&to=" + to;
-    fetch(params_url, requestOptions)
+    const params_url = from + "&to=" + to;
+
+    // for each type of status
+    const confirmed_url = "/status/confirmed?from=";
+    const deaths_url = "/status/deaths?from=";
+    const recovered_url = "/status/recovered?from=";
+
+    // one fetch for each type of status
+    fetch(base_url + confirmed_url + params_url, requestOptions)
+        .then(response => response.json())
+        .then(result => getExactDate(result, date))
+        .catch(error => console.log('error', error));
+
+    fetch(base_url + deaths_url + params_url, requestOptions)
+        .then(response => response.json())
+        .then(result => getExactDate(result, date))
+        .catch(error => console.log('error', error));
+
+    fetch(base_url + recovered_url + params_url, requestOptions)
         .then(response => response.json())
         .then(result => getExactDate(result, date))
         .catch(error => console.log('error', error));
@@ -52,7 +69,20 @@ function getExactDate(res, date) {
 }
 
 function extractData(obj) {
-    console.log(obj);
+    // updates data for corresponding status
+    switch (obj.Status) {
+        case "deaths":
+            data.deaths = obj.Cases;
+            break;
+        case "recovered":
+            data.recovered = obj.Cases;
+            break;
+        case "confirmed":
+            data.cases = obj.Cases;
+            break;
+        default:
+            break;
+    }
 }
 
 getCountryData("South Africa", "2020-04-02T00:00:00Z");
@@ -65,6 +95,15 @@ class App extends React.Component {
             <View>
                 <Text>
                     Country Screen
+                </Text>
+                <Text>
+                    Cases: {data.cases}
+                </Text>
+                <Text>
+                    Deaths: {data.deaths}
+                </Text>
+                <Text>
+                    Recovered: {data.recovered}
                 </Text>
             </View>
         );
