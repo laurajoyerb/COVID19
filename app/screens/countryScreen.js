@@ -39,13 +39,20 @@ function getSlugData(slug, date) {
     const params_url = status_url + from + "&to=" + to;
     fetch(params_url, requestOptions)
         .then(response => response.json())
-        .then(result => handleResult(result))
+        .then(result => getExactDate(result, date))
         .catch(error => console.log('error', error));
 };
 
-function handleResult(res) {
-    console.log(res);
-    
+function getExactDate(res, date) {
+    res.forEach(element => {
+        if (element.Date == date) {
+            extractData(element);
+        }
+    });
+}
+
+function extractData(obj) {
+    console.log(obj);
 }
 
 getCountryData("South Africa", "2020-04-02T00:00:00Z");
