@@ -20,18 +20,20 @@ function parseSummary(res) {
     summary.globalRecovered = res.Global.TotalRecovered;
 
     var maxCases = 0;
-    var worstCountry = "";
+    var worstCountry = {"name": "", "confirmed": "", "deaths": "", "recovered": ""};
 
     for (let index = 0; index < res.Countries.length; index++) {
         const country = res.Countries[index];
         if (country.TotalConfirmed > maxCases) {
             maxCases = country.TotalConfirmed;
-            worstCountry = country.Country;
+            worstCountry.name = country.Country;
+            worstCountry.confirmed = country.TotalConfirmed;
+            worstCountry.deaths = country.TotalDeaths;
+            worstCountry.recovered = country.TotalRecovered;
         }
     }
 
     summary.worstCountry = worstCountry;
-    summary.worstCountryCases = maxCases;
 };
 
 getSummary();
@@ -131,7 +133,7 @@ class App extends React.Component {
                         Global Epicenter
                     </Text>
                     <Text style={{fontSize: 20, padding: 12}}>
-                        {summary.worstCountry}
+                        {summary.worstCountry["name"]}
                     </Text>
                     <View style={styles.dataBox}>
                         <View>
@@ -139,7 +141,7 @@ class App extends React.Component {
                                 Confirmed
                             </Text>
                             <Text style={styles.data}>
-                                {summary.globalCases}
+                                {summary.worstCountry["confirmed"]}
                             </Text>
                         </View>
                         <View>
@@ -147,7 +149,7 @@ class App extends React.Component {
                                 Deaths
                             </Text>
                             <Text style={styles.data}>
-                                {summary.globalDeaths}
+                                {summary.worstCountry["deaths"]}
                             </Text>
                         </View>
                         <View>
@@ -155,7 +157,7 @@ class App extends React.Component {
                                 Recovered
                             </Text>
                             <Text style={styles.data}>
-                                {summary.globalRecovered}
+                                {summary.worstCountry["recovered"]}
                             </Text>
                         </View>
                     </View>  
