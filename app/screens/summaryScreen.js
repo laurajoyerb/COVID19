@@ -20,7 +20,7 @@ function parseSummary(res) {
     summary.globalRecovered = res.Global.TotalRecovered;
 
     var maxCases = 0;
-    var worstCountry = {"name": "", "confirmed": "", "deaths": "", "recovered": ""};
+    var worstCountry = {"name": " ", "confirmed": " ", "deaths": " ", "recovered": " "};
 
     for (let index = 0; index < res.Countries.length; index++) {
         const country = res.Countries[index];
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "lavender",
         backgroundColor: 'steelblue',
         padding: 5,
-        paddingBottom: 20,
+        paddingBottom: 15,
         margin: 5,
         flexDirection: "row",
         justifyContent: "space-evenly"
