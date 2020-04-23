@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     fontSize: 25,
+    color: "lightcyan",
   },
   titleStyle: {
       textAlign: 'center',

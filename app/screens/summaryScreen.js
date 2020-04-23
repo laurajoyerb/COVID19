@@ -41,23 +41,44 @@ const styles = StyleSheet.create({
         backgroundColor: 'powderblue',
         flex: 1,
         alignItems: 'stretch',
-        paddingTop: 50,
+        paddingTop: 30,
     },
-    buttonBox: {
-        backgroundColor: 'steelblue',
-        padding: 20,
-        margin: 20,
+    dataContainer: {
+        // backgroundColor: 'steelblue',
+        padding: 5,
+        margin: 15,
+        flex: 1,
     },
-    textStyle: {
+    data: {
         textAlign: 'center',
-        fontSize: 15,
-        backgroundColor: "green",
+        fontSize: 18,
+        // backgroundColor: "green",
+        padding: 5,
+        margin: 5,
+        color: "lightcyan",
     },
-    titleStyle: {
+    dataBox: {
+        textAlign: 'center',
+        // backgroundColor: "lavender",
+        backgroundColor: 'steelblue',
+        padding: 5,
+        paddingBottom: 20,
+        margin: 5,
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+    },
+    titleBox: {
         textAlign: 'center',
         fontSize: 30,
-        paddingBottom: 20,
-        backgroundColor: "purple",
+        // backgroundColor: "purple",
+    },
+    sectionTitle: {
+        textAlign: 'left',
+        fontSize: 25,
+        // backgroundColor: "skyblue",
+        padding: 5,
+        margin: 5,
+        paddingTop: 15,
     },
     map: {
         ...StyleSheet.absoluteFillObject,
@@ -71,31 +92,73 @@ class App extends React.Component {
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.titleStyle}>
+                    <Text style={styles.titleBox}>
                         Summary
                     </Text>
                 </View>
-                <View style={styles.buttonBox}>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            Global Cases: {summary.globalCases}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            Global Deaths: {summary.globalDeaths}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            Global Recovered: {summary.globalRecovered}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            Global Epicenter: {summary.worstCountry} with {summary.worstCountryCases} cases
+                <View style={styles.dataContainer}>
+                    <Text style={styles.sectionTitle}>
+                        Global Case Overview
                     </Text>
-                    </View>
+                    <View style={styles.dataBox}>
+                        <View>
+                            <Text style={styles.data}>
+                                Confirmed
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalCases}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={styles.data}>
+                                Deaths
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalDeaths}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={styles.data}>
+                                Recovered
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalRecovered}
+                            </Text>
+                        </View>
+                    </View>  
+                    <Text style={{padding: 15}}></Text>
+                    <Text style={styles.sectionTitle}>
+                        Global Epicenter
+                    </Text>
+                    <Text style={{fontSize: 20, padding: 12}}>
+                        {summary.worstCountry}
+                    </Text>
+                    <View style={styles.dataBox}>
+                        <View>
+                            <Text style={styles.data}>
+                                Confirmed
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalCases}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={styles.data}>
+                                Deaths
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalDeaths}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={styles.data}>
+                                Recovered
+                            </Text>
+                            <Text style={styles.data}>
+                                {summary.globalRecovered}
+                            </Text>
+                        </View>
+                    </View>  
                 </View>
             </View>
         );
