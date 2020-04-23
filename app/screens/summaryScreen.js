@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
-var summary = {"globalCases": 0};
+var summary = {"globalCases": ""};
 
 var requestOptions = {
   method: 'GET',
@@ -18,9 +18,6 @@ function parseSummary(res) {
     summary.globalCases = res.Global.TotalConfirmed;
     summary.globalDeaths = res.Global.TotalDeaths;
     summary.globalRecovered = res.Global.TotalRecovered;
-
-    // console.log(typeof res.Countries);
-    // console.log(res.Countries.length);
 
     var maxCases = 0;
     var worstCountry = "";
@@ -39,27 +36,67 @@ function parseSummary(res) {
 
 getSummary();
 
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'powderblue',
+        flex: 1,
+        alignItems: 'stretch',
+        paddingTop: 50,
+    },
+    buttonBox: {
+        backgroundColor: 'steelblue',
+        padding: 20,
+        margin: 20,
+    },
+    textStyle: {
+        textAlign: 'center',
+        fontSize: 15,
+        backgroundColor: "green",
+    },
+    titleStyle: {
+        textAlign: 'center',
+        fontSize: 30,
+        paddingBottom: 20,
+        backgroundColor: "purple",
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject,
+    },
+});
+
 export default
 
 class App extends React.Component {
     render() {
         return (
-            <View>
-                <Text>
-                    Summary Screen
-                </Text>
-                <Text>
-                    Global Cases: {summary.globalCases}
-                </Text>
-                <Text>
-                    Global Deaths: {summary.globalDeaths}
-                </Text>
-                <Text>
-                    Global Recovered: {summary.globalRecovered}
-                </Text>
-                <Text>
-                    Global Epicenter: {summary.worstCountry} with {summary.worstCountryCases} cases
-                </Text>
+            <View style={styles.container}>
+                <View>
+                    <Text style={styles.titleStyle}>
+                        Summary
+                    </Text>
+                </View>
+                <View style={styles.buttonBox}>
+                    <View>
+                        <Text style={styles.textStyle}>
+                            Global Cases: {summary.globalCases}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.textStyle}>
+                            Global Deaths: {summary.globalDeaths}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.textStyle}>
+                            Global Recovered: {summary.globalRecovered}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.textStyle}>
+                            Global Epicenter: {summary.worstCountry} with {summary.worstCountryCases} cases
+                    </Text>
+                    </View>
+                </View>
             </View>
         );
     }
