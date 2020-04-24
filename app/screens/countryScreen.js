@@ -107,7 +107,7 @@ export default
 
     constructor(props) {
         super(props)
-        this.state = { date: "2020-01-22", country: "South Africa" }
+        this.state = { date: "2020-01-22", country: "South Africa"}
     }
 
     update() {
@@ -128,9 +128,6 @@ export default
                     value={this.state.country}
                     onChangeText={(text) => { this.setState({ country: text }) }}
                 />
-                <Text>
-                    Country: {this.state.country}
-                </Text>
                 <Text>
                     Cases: {data.cases}
                 </Text>
