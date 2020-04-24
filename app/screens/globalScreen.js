@@ -1,5 +1,19 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
+const styles = StyleSheet.create({
+    container: {
+        // ...StyleSheet.absoluteFillObject,
+        height: 400,
+        width: 400,
+    },
+    map: {
+        height: 400,
+        width: 400,
+    },
+});
+
 
 var selected = {"name": 0};
 
@@ -34,7 +48,7 @@ export default
 class App extends React.Component {
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <Text>
                     Global Screen
                 </Text>
@@ -50,6 +64,25 @@ class App extends React.Component {
                 <Text>
                     Country Recovered: {selected.recovered}
                 </Text>
+                <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={styles.map}
+                    region={{
+                        latitude: 62,
+                        longitude: -152,
+                        latitudeDelta: 20.0,
+                        longitudeDelta: 40.0,
+                    }}
+                >
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: 62,
+                            longitude: -152
+                        }}
+                        title={"title"}
+                        description={"description"}
+                    />
+                </MapView>
             </View>
         );
     }
