@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { Dropdown } from 'react-native-material-dropdown';
 
 var data = {"cases": ""};
+var countries_list = Array();
 
 var requestOptions = {
     method: 'GET',
@@ -22,12 +24,16 @@ function getCountryData(country, date) {
 
 // gets slug from api results, calls getSlugData to do api call
 function parseSlug(target, res, date) {
+    var slug;
     res.forEach(country => {
         if (country.Country == target) {
-            getSlugData(country.Slug, date);
+            slug = country.Slug;
         }
+        countries_list.push({value: country.Country });
     });
-}
+
+    getSlugData(slug, date)
+;}
 
 // gets the actual data for that country
 function getSlugData(slug, date) {
@@ -104,6 +110,11 @@ class App extends React.Component {
                 <Text>
                     Country Screen
                 </Text>
+                <Dropdown
+                    label='Country'
+                    data={countries_list}
+                    itemCount={10}
+                />
                 <Text>
                     Cases: {data.cases}
                 </Text>
