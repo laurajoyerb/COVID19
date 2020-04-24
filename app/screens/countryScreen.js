@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { Dropdown } from 'react-native-material-dropdown';
+import DatePicker from 'react-native-datepicker'
 
 var data = {"cases": ""};
 var countries_list = Array();
@@ -99,11 +100,20 @@ function extractData(obj) {
     }
 }
 
-getCountryData("South Africa", "2020-03-30T00:00:00Z");
-
 export default
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = { date: "2020-01-22" }
+    }
+
+    update() {
+        var dateString = this.state.date + "T00:00:00Z";
+        getCountryData("South Africa", dateString);
+    }
+
     render() {
         return (
             <View>
@@ -124,6 +134,29 @@ class App extends React.Component {
                 <Text>
                     Recovered: {data.recovered}
                 </Text>
+                <DatePicker
+                    style={{ width: 300 }}
+                    date={this.state.date}
+                    mode="date"
+                    placeholder="select date"
+                    format="YYYY-MM-DD"
+                    minDate="2020-01-22"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                        dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 0
+                        },
+                        dateInput: {
+                            marginLeft: 36
+                        }
+                    }}
+                    onDateChange={(date) => { this.setState({ date: date }) }}
+                    onCloseModal={this.update()}
+                />
             </View>
         );
     }
