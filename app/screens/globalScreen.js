@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { hydrate } from 'react-dom';
+import latlong from './latlong.json'
 
 const styles = StyleSheet.create({
     container: {
@@ -12,77 +14,85 @@ const styles = StyleSheet.create({
         height: 400,
         width: 400,
     },
+    marker: {
+        height: 100,
+        width: 200,
+        alignItems: "center",
+        justifyContent: "center"
+    },
 });
-
-
-var selected = {"name": 0};
 
 var requestOptions = {
   method: 'GET',
   redirect: 'follow'
 };
 
-function getCountrySummary(country) {
-  fetch("https://api.covid19api.com/summary", requestOptions)
-    .then(response => response.json())
-    .then(result => parseCountry(country, result))
-    .catch(error => console.log('error', error));
-};
-
-function parseCountry(country_target, res) {
-
-  res.Countries.forEach(country => {
-    if (country.Country == country_target) {
-        selected.name = country_target;
-        selected.cases = country.TotalConfirmed;
-        selected.deaths = country.TotalDeaths;
-        selected.recovered = country.TotalRecovered;
-    }
-  });
-};
-
-getCountrySummary("South Africa");
-
 export default
 
 class App extends React.Component {
+
+    constructor() {
+        super();
+        this.state = { markers: [] };
+    }
+
+    async componentDidMount() {
+        let res = await fetch("https://api.covid19api.com/summary", requestOptions);
+        var json = await res.json();
+        var countryNums = json.Countries;
+
+        countryNums.forEach(element => {
+            var code = element.CountryCode.toLowerCase();
+
+            if (code in latlong) {
+                element.Lat = parseFloat(latlong[code].lat);
+                element.Long = parseFloat(latlong[code].long);
+            } else if (countryNums.indexOf(element) != -1) {
+                countryNums.splice(countryNums.indexOf(element), 1);
+            } 
+        });
+
+        this.setState({ markers: countryNums });
+    }
+
     render() {
+        let mapItem = 
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.map}
+                region={{
+                    latitude: 20,
+                    longitude: -40,
+                    latitudeDelta: 100.0,
+                    longitudeDelta: 100.0,
+                }}
+            >
+                {this.state.markers.map(marker =>(
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: marker.Lat,
+                            longitude: marker.Long
+                        }}
+                    >
+                        <MapView.Callout>
+                            <View style={styles.marker}>
+                                <Text style={{ fontWeight: 'bold' }}> {marker.Country} </Text>
+                                <Text> Cases: {marker.TotalConfirmed}  </Text>
+                                <Text> Deaths: {marker.TotalDeaths} </Text>
+                                <Text> Recovered: {marker.TotalRecovered} </Text>
+                            </View>
+                        </MapView.Callout>
+                    </MapView.Marker>
+                ))}
+            </MapView>;
+                
+
         return (
             <View style={styles.container}>
                 <Text>
                     Global Screen
                 </Text>
-                <Text>
-                    Country: {selected.name}
-                </Text>
-                <Text>
-                    Country Cases: {selected.cases}
-                </Text>
-                <Text>
-                    Country Deaths: {selected.deaths}
-                </Text>
-                <Text>
-                    Country Recovered: {selected.recovered}
-                </Text>
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    style={styles.map}
-                    region={{
-                        latitude: 62,
-                        longitude: -152,
-                        latitudeDelta: 20.0,
-                        longitudeDelta: 40.0,
-                    }}
-                >
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: 62,
-                            longitude: -152
-                        }}
-                        title={"title"}
-                        description={"description"}
-                    />
-                </MapView>
+                {mapItem}
             </View>
         );
     }
