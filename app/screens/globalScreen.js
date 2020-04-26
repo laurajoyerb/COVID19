@@ -6,19 +6,15 @@ import latlong from './latlong.json'
 
 const styles = StyleSheet.create({
     container: {
-        // ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
+        ...StyleSheet.absoluteFillObject,
     },
     map: {
-        height: 400,
-        width: 400,
+        ...StyleSheet.absoluteFillObject,
     },
-    marker: {
-        height: 100,
-        width: 200,
+    callout: {
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        padding: 10,
     },
 });
 
@@ -41,6 +37,7 @@ class App extends React.Component {
         var json = await res.json();
         var countryNums = json.Countries;
 
+        // adds lat long info to json
         countryNums.forEach(element => {
             var code = element.CountryCode.toLowerCase();
 
@@ -48,6 +45,7 @@ class App extends React.Component {
                 element.Lat = parseFloat(latlong[code].lat);
                 element.Long = parseFloat(latlong[code].long);
             } else if (countryNums.indexOf(element) != -1) {
+                // if lat long isn't found in json, country is removed
                 countryNums.splice(countryNums.indexOf(element), 1);
             } 
         });
@@ -75,8 +73,8 @@ class App extends React.Component {
                         }}
                     >
                         <MapView.Callout>
-                            <View style={styles.marker}>
-                                <Text style={{ fontWeight: 'bold' }}> {marker.Country} </Text>
+                            <View style={styles.callout}>
+                                <Text style={{fontWeight: "bold"}}> {marker.Country} </Text>
                                 <Text> Cases: {marker.TotalConfirmed}  </Text>
                                 <Text> Deaths: {marker.TotalDeaths} </Text>
                                 <Text> Recovered: {marker.TotalRecovered} </Text>
@@ -86,12 +84,8 @@ class App extends React.Component {
                 ))}
             </MapView>;
                 
-
         return (
             <View style={styles.container}>
-                <Text>
-                    Global Screen
-                </Text>
                 {mapItem}
             </View>
         );
