@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { Dropdown } from 'react-native-material-dropdown';
 import DatePicker from 'react-native-datepicker'
+import { max } from 'react-native-reanimated';
 
 var data = { "cases": "" };
 var countries_list = Array();
@@ -82,7 +83,6 @@ export default
             }
             
         }
-        console.log("date not found");
     }
 
     async componentDidMount() {
@@ -90,6 +90,9 @@ export default
     }
 
     render() {
+        var maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() - 1); 
+
         return (
             <View>
                 <Text>
@@ -121,7 +124,7 @@ export default
                     placeholder="select date"
                     format="YYYY-MM-DD"
                     minDate="2020-01-22"
-                    maxDate={new Date().toISOString().substring(0,10)}
+                    maxDate={maxDate.toISOString().substring(0,10)}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
