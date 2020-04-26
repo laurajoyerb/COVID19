@@ -33,8 +33,12 @@ function parseSlug(target, res, date) {
         countries_list.push({ value: country.Country });
     });
 
-    getSlugData(slug, date)
-        ;
+    // alphabetizes list
+    countries_list.sort(function(a, b) {
+        return a.value > b.value;
+    });
+
+    getSlugData(slug, date);
 }
 
 // gets the actual data for that country
@@ -107,12 +111,22 @@ export default
 
     constructor(props) {
         super(props)
-        this.state = { date: "2020-01-22", country: "South Africa"}
+        this.state = {
+            date: "2020-01-22",
+            country: "South Africa",
+            cases: "-",
+            deaths: "-",
+            recovered: "-"
+        }
     }
 
     update() {
         var dateString = this.state.date + "T00:00:00Z";
         getCountryData(this.state.country, dateString);
+    }
+
+    async componentDidMount() {
+
     }
 
     render() {

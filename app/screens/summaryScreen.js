@@ -12,7 +12,8 @@ function getSummary() {
   fetch("https://api.covid19api.com/summary", requestOptions)
     .then(response => response.json())
     .then(result => parseSummary(result))
-    .catch(error => console.log('error', error));};
+    .catch(error => console.log('error', error));
+};
 
 function parseSummary(res) {
     summary.globalCases = res.Global.TotalConfirmed;
