@@ -4,6 +4,7 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { Dropdown } from 'react-native-material-dropdown';
 import DatePicker from 'react-native-datepicker'
 import { max } from 'react-native-reanimated';
+import { Divider } from 'react-native-elements';
 
 var data = { "cases": "" };
 var countries_list = Array();
@@ -32,6 +33,57 @@ function parseSlug(target, res) {
     return slug;
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'powderblue',
+        flex: 1,
+        alignItems: 'stretch',
+        paddingTop: 30,
+    },
+    data: {
+        textAlign: 'center',
+        fontSize: 18,
+        // backgroundColor: "green",
+        padding: 5,
+        margin: 5,
+        color: "lightcyan",
+    },
+    dataBox: {
+        textAlign: 'center',
+        // backgroundColor: "lavender",
+        backgroundColor: 'steelblue',
+        padding: 5,
+        paddingBottom: 15,
+        margin: 5,
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+    },
+    optionsBox: {
+        textAlign: 'center',
+        // backgroundColor: "lavender",
+        backgroundColor: 'steelblue',
+        padding: 5,
+        margin: 5,
+        justifyContent: "space-evenly"
+    },
+    dateBox: {
+        textAlign: 'center',
+        // backgroundColor: 'steelblue',
+        padding: 5,
+        margin: 5,
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        flexDirection: "row",
+    },
+    title: {
+        // backgroundColor: "purple",
+        fontSize: 25,
+        padding: 5,
+        margin: 5,
+    }
+});
 
 export default
 
@@ -94,55 +146,80 @@ export default
         maxDate.setDate(maxDate.getDate() - 1); 
 
         return (
-            <View>
-                <Text>
-                    Country Screen
+            <View style={styles.container}>
+                <View style={styles.optionsBox}>
+                    <Dropdown
+                        label='Country'
+                        fontSize= {22}
+                        labelFontSize={15}
+                        data={countries_list}
+                        style={{ color: "lightcyan" }}
+                        itemCount={12}
+                        value={this.state.country}
+                        onChangeText={(text) => {
+                            this.setState({ country: text })
+                            this.update();
+                        }}
+                    />
+                    <View style={styles.dateBox}>
+                        <Text style={{color: "lightcyan", fontSize: 18}}>
+                            Date
+                        </Text>
+                        <DatePicker
+                            style={{ width: 300 }}
+                            date={this.state.date}
+                            showIcon={false}
+                            mode="date"
+                            placeholder="select date"
+                            format="YYYY-MM-DD"
+                            minDate="2020-01-22"
+                            maxDate={maxDate.toISOString().substring(0, 10)}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateInput: {
+                                    marginLeft: 36,
+                                }
+                            }}
+                            onDateChange={(date) => {
+                                this.setState({ date: date })
+                                this.update();
+                            }}
+                        />
+                    </View>
+                </View>
+
+                <Divider style={{backgroundColor: 'lightcyan', height: 3, marginVertical: 35, marginHorizontal: 20}} />
+
+                <Text style={styles.title}>
+                    {this.state.country}
                 </Text>
-                <Dropdown
-                    label='Country'
-                    data={countries_list}
-                    itemCount={12}
-                    value={this.state.country}
-                    onChangeText={(text) => {
-                        this.setState({ country: text })
-                        this.update();
-                    }}
-                />
-                <Text>
-                    Cases: {this.state.cases}
-                </Text>
-                <Text>
-                    Deaths: {this.state.deaths}
-                </Text>
-                <Text>
-                    Recovered: {this.state.recovered}
-                </Text>
-                <DatePicker
-                    style={{ width: 300 }}
-                    date={this.state.date}
-                    mode="date"
-                    placeholder="select date"
-                    format="YYYY-MM-DD"
-                    minDate="2020-01-22"
-                    maxDate={maxDate.toISOString().substring(0,10)}
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36
-                        }
-                    }}
-                    onDateChange={(date) => {
-                        this.setState({ date: date })
-                        this.update();
-                    }}
-                />
+                <View style={styles.dataBox}>
+                    <View>
+                        <Text style={styles.data}>
+                            Confirmed
+                            </Text>
+                        <Text style={styles.data}>
+                            {this.state.cases}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.data}>
+                            Deaths
+                            </Text>
+                        <Text style={styles.data}>
+                            {this.state.deaths}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.data}>
+                            Recovered
+                            </Text>
+                        <Text style={styles.data}>
+                            {this.state.recovered}
+                        </Text>
+                    </View>
+                </View>  
             </View>
         );
     }
