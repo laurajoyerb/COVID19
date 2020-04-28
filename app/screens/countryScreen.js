@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import DatePicker from 'react-native-datepicker'
-import { max } from 'react-native-reanimated';
 import { Divider } from 'react-native-elements';
 
-var data = { "cases": "" };
 var countries_list = Array();
 
 var requestOptions = {
@@ -44,14 +41,12 @@ const styles = StyleSheet.create({
     data: {
         textAlign: 'center',
         fontSize: 18,
-        // backgroundColor: "green",
         padding: 5,
         margin: 5,
         color: "lightcyan",
     },
     dataBox: {
         textAlign: 'center',
-        // backgroundColor: "lavender",
         backgroundColor: 'steelblue',
         padding: 5,
         paddingBottom: 15,
@@ -61,15 +56,13 @@ const styles = StyleSheet.create({
     },
     optionsBox: {
         textAlign: 'center',
-        // backgroundColor: "lavender",
         backgroundColor: 'steelblue',
-        padding: 5,
-        margin: 5,
+        padding: 10,
+        margin: 10,
         justifyContent: "space-evenly"
     },
     dateBox: {
         textAlign: 'center',
-        // backgroundColor: 'steelblue',
         padding: 5,
         margin: 5,
         justifyContent: "center",
@@ -78,7 +71,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     title: {
-        // backgroundColor: "purple",
         fontSize: 25,
         padding: 5,
         margin: 5,
@@ -152,8 +144,9 @@ export default
                         label='Country'
                         fontSize= {22}
                         labelFontSize={15}
+                        labelTextStyle={{padding: 5}}
                         data={countries_list}
-                        style={{ color: "lightcyan" }}
+                        style={{ color: "lightcyan", padding: 5 }}
                         itemCount={12}
                         value={this.state.country}
                         onChangeText={(text) => {
