@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 var summary = {"globalCases": ""};
 
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         paddingTop: 30,
     },
     dataContainer: {
-        // backgroundColor: 'steelblue',
         padding: 5,
         margin: 15,
         flex: 1,
@@ -55,14 +54,12 @@ const styles = StyleSheet.create({
     data: {
         textAlign: 'center',
         fontSize: 18,
-        // backgroundColor: "green",
         padding: 5,
         margin: 5,
         color: "lightcyan",
     },
     dataBox: {
         textAlign: 'center',
-        // backgroundColor: "lavender",
         backgroundColor: 'steelblue',
         padding: 5,
         paddingBottom: 15,
@@ -73,12 +70,10 @@ const styles = StyleSheet.create({
     titleBox: {
         textAlign: 'center',
         fontSize: 30,
-        // backgroundColor: "purple",
     },
     sectionTitle: {
         textAlign: 'left',
         fontSize: 25,
-        // backgroundColor: "skyblue",
         padding: 5,
         margin: 5,
         paddingTop: 15,
