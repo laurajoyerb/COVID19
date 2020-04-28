@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { hydrate } from 'react-dom';
 import latlong from './latlong.json'
 
 const styles = StyleSheet.create({
