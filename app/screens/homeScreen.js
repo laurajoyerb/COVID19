@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
       fontSize: 30,
       paddingBottom: 20,
   },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
 });
 
 class HomeScreen extends React.Component{
