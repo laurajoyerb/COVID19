@@ -1,7 +1,7 @@
 # COVID-19 React Native Application
 
 ## Introduction
-This application was an assignment for ENG EC 500: Software Engineering at Boston University with Professor Osama Alshaykh. We were tasked with developing an application using React Native to display facts and statistics about the COVID-19 pandemic. 
+This application was an assignment for ENG EC 500: Software Engineering at Boston University with Professor Osama Alshaykh. We were tasked with developing an application using React Native to display facts and statistics about the COVID-19 pandemic. We used the https://api.covid19api.com/ API for retrieving data. 
 
 ## Screens
 
