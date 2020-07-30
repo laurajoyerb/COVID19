@@ -1,9 +1,13 @@
 # COVID-19 React Native Application
 
+## Introduction
+This application was an assignment for ENG EC 500: Software Engineering at Boston University with Professor Osama Alshaykh. We were tasked with developing an application using React Native to display facts and statistics about the COVID-19 pandemic. 
+
 ## Screens
 
 ### Home Screen
 The home screen allows navigation to all other screens.
+
 <img src="./images/home.PNG" width=50%/>
 
 ### Quick Summary
